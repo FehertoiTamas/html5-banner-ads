@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="ad.size" content="width=300,height=250" />
+    <title>Pulse — Find your focus</title>
+
+    <!-- ============================================================
+     CLICKTAG SETUP (read this before uploading to an ad network)
+     ------------------------------------------------------------
+     "clickTag" is the industry-standard variable ad servers
+     (Google Ad Manager, DV360, Sizmek, Flashtalking, etc.) look
+     for. When they serve this banner, they inject the real
+     destination URL into it via a query string, e.g.:
+     index.html?clickTag=https://your-landing-page.com
+     If no ad server is involved (e.g. this is just a portfolio
+     demo on GitHub Pages), the FALLBACK_URL below is used instead.
+     Never hardcode the destination anywhere else — always read
+     it from clickTag so the banner works in any ad server.
+     ============================================================ -->
+    <script>
+      let clickTag = ""; // left empty on purpose — ad servers fill this in
+      let FALLBACK_URL = "https://github.com/"; // <-- replace with your own link/CV/portfolio URL
+    </script>
+
+    <style>
+      :root {
+        --bg-deep: #0b1220;
+        --bg-mid: #142238;
+        --line: #24344f;
+        --teal: #2dd4bf;
+        --amber: #ffb454;
+        --text-main: #f4f6f8;
+        --text-mute: #93a1b4;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 300px;
+        height: 250px;
+        overflow: hidden;
+        background: var(--bg-deep);
+      }
+
+      body {
+        font-family:
+          "Inter",
+          -apple-system,
+          Segoe UI,
+          sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      #banner {
+        position: relative;
+        width: 300px;
+        height: 250px;
+        cursor: pointer;
+        background: radial-gradient(
+          120% 140% at 15% 0%,
+          var(--bg-mid) 0%,
+          var(--bg-deep) 60%
+        );
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 22px;
+      }
+
+      /* subtle static grid — reads as "product UI", not decoration */
+      #grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(var(--line) 1px, transparent 1px),
+          linear-gradient(90deg, var(--line) 1px, transparent 1px);
+        background-size: 30px 30px;
+        opacity: 0.18;
+        mask-image: radial-gradient(circle at 30% 20%, black, transparent 75%);
+      }
+
+      #logo {
+        position: absolute;
+        top: 16px;
+        left: 22px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        opacity: 0;
+      }
+      #logo svg {
+        width: 26px;
+        height: 16px;
+        display: block;
+      }
+      #logo path {
+        fill: none;
+        stroke: var(--teal);
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      #logo span {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        color: var(--text-main);
+      }
+
+      #headline {
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 700;
+        font-size: 29px;
+        line-height: 1.08;
+        color: var(--text-main);
+        margin: 0 0 8px 0;
+        max-width: 220px;
+        opacity: 0;
+        transform: translateY(16px);
+      }
+      #headline em {
+        font-style: normal;
+        color: var(--teal);
+      }
+
+      #subline {
+        font-size: 13px;
+        line-height: 1.4;
+        color: var(--text-mute);
+        max-width: 210px;
+        margin: 0 0 18px 0;
+        opacity: 0;
+      }
+
+      #cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        align-self: flex-start;
+        background: var(--amber);
+        color: var(--bg-deep);
+        font-family: "Inter", sans-serif;
+        font-weight: 600;
+        font-size: 13px;
+        padding: 9px 16px;
+        border-radius: 99px;
+        opacity: 0;
+        transform: scale(0.85);
+      }
+      #cta svg {
+        width: 12px;
+        height: 12px;
+      }
+
+      #pulse-line {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 46px;
+        opacity: 0.5;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="banner">
+      <div id="grid"></div>
+
+      <!-- animated heartbeat/pulse-line trace as a wordmark, doubles as
+       the moving "signal" motif reused at the bottom of the banner -->
+      <div id="logo">
+        <svg viewBox="0 0 40 24" xmlns="http://www.w3.org/2000/svg">
+          <path id="logo-path" d="M0 12 H10 L14 4 L19 20 L23 12 H40" />
+        </svg>
+        <span>PULSE</span>
+      </div>
+
+      <h1 id="headline">Find your<br /><em>deep focus.</em></h1>
+      <p id="subline">A quiet timer built for makers who ship.</p>
+
+      <div id="cta">
+        Start free
+        <svg viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <path
+            d="M2 6H10M10 6L6.5 2.5M10 6L6.5 9.5"
+            stroke="#0B1220"
+            stroke-width="1.4"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </div>
+
+      <svg
+        id="pulse-line"
+        viewBox="0 0 300 46"
+        preserveAspectRatio="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          id="pulse-trace"
+          d="M0 30 H90 L104 8 L120 42 L134 30 H300"
+          fill="none"
+          stroke="#2DD4BF"
+          stroke-width="1.5"
+        />
+      </svg>
+    </div>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script>
+      (function () {
+        // ---- click handling -----------------------------------------
+        document
+          .getElementById("banner")
+          .addEventListener("click", function () {
+            let destination = clickTag || FALLBACK_URL;
+            window.open(destination, "_blank");
+          });
+
+        // ---- prep the two stroke-drawn lines --------------------------
+        function prepDraw(id) {
+          let el = document.getElementById(id);
+          let len = el.getTotalLength();
+          el.style.strokeDasharray = len;
+          el.style.strokeDashoffset = len;
+          return len;
+        }
+        prepDraw("logo-path");
+        prepDraw("pulse-trace");
+
+        // ---- animation timeline ---------------------------------------
+        // Runs once, then loops twice more (3 total plays), then rests —
+        // in line with common ad-network guidance against endless motion.
+        let tl = gsap.timeline({ repeat: 2, repeatDelay: 1.4 });
+
+        tl.to("#logo", { opacity: 1, duration: 0.4, ease: "power1.out" })
+          .to(
+            "#logo-path",
+            { strokeDashoffset: 0, duration: 0.6, ease: "power2.inOut" },
+            "<",
+          )
+          .to(
+            "#headline",
+            { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" },
+            0.35,
+          )
+          .to(
+            "#subline",
+            { opacity: 1, duration: 0.5, ease: "power1.out" },
+            0.75,
+          )
+          .to(
+            "#cta",
+            { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2.2)" },
+            0.95,
+          )
+          .to(
+            "#pulse-trace",
+            { strokeDashoffset: 0, duration: 1.1, ease: "power1.inOut" },
+            0.95,
+          )
+          .to(
+            "#cta",
+            {
+              scale: 1.05,
+              duration: 0.35,
+              ease: "sine.inOut",
+              yoyo: true,
+              repeat: 1,
+            },
+            "+=0.3",
+          )
+          .to(
+            ["#headline", "#subline", "#cta", "#logo"],
+            { opacity: 0, y: -6, duration: 0.4, ease: "power1.in" },
+            "+=1.2",
+          )
+          .set("#headline", { y: 16 })
+          .set("#cta", { scale: 0.85 })
+          .set("#pulse-trace", {
+            strokeDashoffset: (len) =>
+              document.getElementById("pulse-trace").getTotalLength(),
+          })
+          .set("#logo-path", {
+            strokeDashoffset: (len) =>
+              document.getElementById("logo-path").getTotalLength(),
+          });
+      })();
+    </script>
+  </body>
+</html>
