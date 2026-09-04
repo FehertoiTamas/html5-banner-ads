@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="ad.size" content="width=300,height=600" />
+    <title>Aroe — Quiet objects, considered spaces</title>
+
+    <script>
+      let clickTag = "";
+      let FALLBACK_URL = "https://www.linkedin.com/in/tamas-fehertoi-97b304293"; // <-- replace with your own link
+    </script>
+
+    <style>
+      :root {
+        --bg: #e7e1d6;
+        --panel: #ddd5c6;
+        --charcoal: #221f1c;
+        --sage: #6b7a5e;
+        --mute: #8c8578;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 300px;
+        height: 600px;
+        overflow: hidden;
+        background: var(--bg);
+      }
+      body {
+        font-family:
+          "Inter",
+          -apple-system,
+          Segoe UI,
+          sans-serif;
+      }
+
+      #banner {
+        position: relative;
+        width: 300px;
+        height: 600px;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 34px 30px;
+        background: var(--bg);
+      }
+
+      #logo {
+        align-self: flex-start;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        color: var(--charcoal);
+        opacity: 0;
+      }
+
+      #chair {
+        width: 170px;
+        height: 260px;
+        margin: 38px 0 30px;
+        opacity: 0;
+      }
+      #chair path {
+        fill: none;
+        stroke: var(--charcoal);
+        stroke-width: 1.4;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      #headline {
+        font-family: "Fraunces", serif;
+        font-weight: 500;
+        font-style: italic;
+        font-size: 26px;
+        line-height: 1.3;
+        color: var(--charcoal);
+        text-align: center;
+        max-width: 210px;
+        margin: 0 0 12px;
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      #subline {
+        font-size: 13px;
+        line-height: 1.5;
+        color: var(--mute);
+        text-align: center;
+        max-width: 190px;
+        margin: 0 0 26px;
+        opacity: 0;
+      }
+
+      #cta {
+        background: transparent;
+        color: var(--charcoal);
+        font-weight: 600;
+        font-size: 13px;
+        padding: 12px 22px;
+        border: 1px solid var(--charcoal);
+        border-radius: 99px;
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      #dot {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--sage);
+        bottom: 36px;
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="banner">
+      <div id="logo">AROE</div>
+
+      <svg id="chair" viewBox="0 0 170 260" xmlns="http://www.w3.org/2000/svg">
+        <path
+          id="chair-path"
+          d="M40 20 V120 M130 20 V190 M40 120 H130 M40 120 L20 240 M130 190 L150 240 M20 240 H150 M40 60 H130"
+        />
+      </svg>
+
+      <h1 id="headline">Quiet objects,<br />considered spaces.</h1>
+      <p id="subline">Furniture designed to disappear into daily life.</p>
+
+      <div id="cta">Explore the collection</div>
+      <div id="dot"></div>
+    </div>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@1,500&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script>
+      (function () {
+        document
+          .getElementById("banner")
+          .addEventListener("click", function () {
+            window.open(window.clickTag || FALLBACK_URL, "_blank");
+          });
+
+        let chairPath = document.getElementById("chair-path");
+        let chairLen = chairPath.getTotalLength();
+        chairPath.style.strokeDasharray = chairLen;
+        chairPath.style.strokeDashoffset = chairLen;
+
+        let tl = gsap.timeline({ repeat: 2, repeatDelay: 1.6 });
+
+        tl.to("#logo", { opacity: 1, duration: 0.4, ease: "power1.out" })
+          .to("#chair", { opacity: 1, duration: 0.3, ease: "power1.out" }, 0.3)
+          .to(
+            "#chair-path",
+            { strokeDashoffset: 0, duration: 1.3, ease: "power2.inOut" },
+            0.35,
+          )
+          .to(
+            "#headline",
+            { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" },
+            1.5,
+          )
+          .to(
+            "#subline",
+            { opacity: 1, duration: 0.45, ease: "power1.out" },
+            1.85,
+          )
+          .to(
+            "#cta",
+            { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" },
+            2.1,
+          )
+          .to(
+            "#dot",
+            {
+              opacity: 1,
+              scale: 1.6,
+              duration: 0.4,
+              ease: "sine.inOut",
+              yoyo: true,
+              repeat: 1,
+            },
+            "+=0.5",
+          )
+          .to(
+            ["#logo", "#chair", "#headline", "#subline", "#cta", "#dot"],
+            { opacity: 0, duration: 0.4, ease: "power1.in" },
+            "+=1.3",
+          )
+          .set("#headline", { y: 10 })
+          .set("#cta", { y: 8 })
+          .set("#chair-path", { strokeDashoffset: chairLen });
+      })();
+    </script>
+  </body>
+</html>
